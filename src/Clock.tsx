@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 
 
 class ClockClass extends React.Component<{}, {time: Date}> {
-    timerID: any;
+    timerID: number = -1;
 
     // Mounting: create & insert a component into the DOM tree, i.e. FIRST render.
     // 3 mounting methods, in calling order:
@@ -25,7 +25,13 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     // Component DOM not exists yet, as it is called BEFORE render().
     // Called ONCE.
     constructor(props: any) {
+        // Props: external data, given by parent component.
         super(props);
+
+        // State: internal data, created & modified inside the component.
+        // If state is passed as props for a child component,
+        // when that state changes, the changes propagates to
+        // the child component (principle: DOWNWARD data flow).
         this.state = {time: new Date()};
     }
 
@@ -34,7 +40,7 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     // Component DOM exists, as it is called AFTER render().
     // Called ONCE.
     componentDidMount() {
-        this.timerID = setInterval(this.tick.bind(this), 1000);
+        this.timerID = window.setInterval(this.tick.bind(this), 1000);
     }
 
     // Default to true.
@@ -47,7 +53,7 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     // Shit is cleanup here.
     // Called once, obviously.
     componentWillUnmount() {
-        clearInterval(this.timerID);
+        window.clearInterval(this.timerID);
     }
 
     // Triggered by:
@@ -55,7 +61,7 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     //   - props changes
     //   - setState()
     // - shouldComponentUpdate()
-    render() {
+    render(): ReactNode {
         return <div>{ this.state.time.toLocaleTimeString() }</div>
     }
 
@@ -65,9 +71,10 @@ class ClockClass extends React.Component<{}, {time: Date}> {
 }
 
 // Hook is a shift in paradigm, not a total equivalent of class component.
-// The comments comparing hook & class component below is not entirely accurate
-// just a quick & dirty rule of thumb.
-const ClockFunc = (props: any) => {
+// Therefore, strict 1:1 mapping of the lifecycle methods & use() functions
+// is impossible. The comments comparing hook & class component below is
+// not entirely accurate, just a quick & dirty rule of thumb.
+const ClockFunc = (props: any): JSX.Element | null => {
     // Do what constructor does.
     const [time, setTime]: [Date, Function] = useState(new Date());
 
