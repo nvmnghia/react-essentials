@@ -25,14 +25,22 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     // Component DOM not exists yet, as it is called BEFORE render().
     // Called ONCE.
     constructor(props: any) {
-        // Props: external data, given by parent component.
+        // Props: external, IMMUTABLE data.
+        // Props are given by parent component.
         super(props);
 
-        // State: internal data, created & modified inside the component.
-        // If state is passed as props for a child component,
-        // when that state changes, the changes propagates to
-        // the child component (principle: DOWNWARD data flow).
+        // State: internal, MUTABLE data.
+        // State is created & modified inside the component.
+        // State is created here normally, but modified
+        // outside of constructor() by setState().
         this.state = {time: new Date()};
+
+        // DOWNWARD data flow:
+        // - Data is passed as props.
+        // - State is created, might be from props.
+        // - State is passed as props to a child components.
+        // In the last case, when that state changes, the changes
+        // propagates to the child component.
     }
 
     // Shit not related to state is setup here.
@@ -66,7 +74,11 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     }
 
     tick() {
-        this.setState({time: new Date()});
+        // 2 form of set state:
+        // - setState(State): MERGE (not overwrite) State with this.state.
+        // - setState((State, Props) => State): calculate state from this.state & this.props.
+        // If next state is calculated from current state/props, 2nd form must be used.
+        this.setState({time: new Date()});    // 1st form
     }
 }
 
