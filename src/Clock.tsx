@@ -2,7 +2,7 @@ import React, { useState, useEffect, ReactNode } from 'react';
 
 
 class ClockClass extends React.Component<{}, {time: Date}> {
-    timerID: number = -1;
+    timerID: number | undefined = undefined;
 
     // Mounting: create & insert a component into the DOM tree, i.e. FIRST render.
     // 3 mounting methods, in calling order:
@@ -95,10 +95,10 @@ const ClockFunc = (props: any): JSX.Element | null => {
     const [time, setTime]: [Date, Function] = useState(new Date());
 
     useEffect(() => {
-        // Do what componentDidMount does.
+        // Do what componentDidMount() does.
         const timerID = setInterval(() => setTime(new Date()), 1000);
 
-        // Return a function doing what componentWillUnmount does.
+        // Return a function doing what componentWillUnmount() does.
         return () => clearInterval(timerID);
     });
 
