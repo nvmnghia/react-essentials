@@ -66,15 +66,18 @@ class ClockClass extends React.Component<{}, {time: Date}> {
 
     // Triggered by:
     // - state changes: which is caused by
-    //   - props changes
+    //   - getDerivedStateFromProps() (not recommended)
     //   - setState()
+    // - forceUpdate() (not recommended)
+    // Prevented by:
     // - shouldComponentUpdate()
+    // - memo hook
     render(): ReactNode {
         return <div>{ this.state.time.toLocaleTimeString() }</div>
     }
 
     tick() {
-        // 2 form of set state:
+        // 2 forms of setState():
         // - setState(State): MERGE (not overwrite) State with this.state.
         // - setState((State, Props) => State): calculate state from this.state & this.props.
         // If next state is calculated from current state/props, 2nd form must be used.
@@ -82,10 +85,11 @@ class ClockClass extends React.Component<{}, {time: Date}> {
     }
 }
 
+// Hook (use()) must be called at the top level, NOT INSIDE loop/if/nested function.
 // Hook is a shift in paradigm, not a total equivalent of class component.
-// Therefore, strict 1:1 mapping of the lifecycle methods & use() functions
-// is impossible. The comments comparing hook & class component below is
-// not entirely accurate, just a quick & dirty rule of thumb.
+// Therefore, strict 1:1 mapping of lifecycle methods & hooks is impossible.
+// The comments comparing hook & class component below is not entirely
+// accurate, just a quick rule of thumb.
 const ClockFunc = (props: any): JSX.Element | null => {
     // Do what constructor does.
     const [time, setTime]: [Date, Function] = useState(new Date());
@@ -96,10 +100,10 @@ const ClockFunc = (props: any): JSX.Element | null => {
 
         // Return a function doing what componentWillUnmount does.
         return () => clearInterval(timerID);
-    })
+    });
 
     // Do what render() does.
-    return <div>{ time.toLocaleTimeString() }</div>
+    return <div>{ time.toLocaleTimeString() }</div>;
 }
 
 export { ClockClass, ClockFunc };
