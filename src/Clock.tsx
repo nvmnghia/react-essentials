@@ -1,7 +1,11 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 
 
-class ClockClass extends React.Component<{}, {time: Date}> {
+class ClockClass extends React.Component<
+        {},             // Type of props
+        {time: Date}    // Type of state
+    > {
+
     timerID: number | undefined = undefined;
 
     // Mounting: create & insert a component into the DOM tree, i.e. FIRST render.
@@ -35,12 +39,20 @@ class ClockClass extends React.Component<{}, {time: Date}> {
         // outside of constructor() by setState().
         this.state = {time: new Date()};
 
-        // DOWNWARD data flow:
+        // DOWNWARD dataflow:
         // - Data is passed as props.
         // - State is created, might be from props.
         // - State is passed as props to a child components.
         // In the last case, when that state changes, the changes
-        // propagates to the child component.
+        // propagates to the child components.
+        // TODO: compare to unidirectional dataflow of Angular.
+
+        // Q: Shouldn't props be immutable?
+        // A: Props are immutable in the sense that the component can't
+        //    mutate its props. Parent component can change data that
+        //    was already passed as props to child component and that
+        //    changes is propagated down as explained.
+        // Tl;DR: props are states managed by parents.
     }
 
     // Shit not related to state is setup here.
