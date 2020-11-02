@@ -31,7 +31,7 @@ function App() {
   ));
 
   const paneContentElements: ReactElement[] = panes.map((pane, idx) => (
-    <Tab.Pane eventKey={ `example-panel-${idx}` }>
+    <Tab.Pane eventKey={ `example-panel-${idx}` } unmountOnExit={ true }>
       <pane.content/>
     </Tab.Pane>
   ));

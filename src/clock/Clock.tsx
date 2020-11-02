@@ -1,7 +1,5 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 
-import { ExamplePane } from '../app/App';
-
 
 interface ClockProps { };
 interface ClockState {
@@ -147,9 +145,5 @@ const ClockFunc = (props: ClockProps): ReactElement => {
   );
 }
 
-const ClockPane: ExamplePane = {
-  title: 'Clock',
-  content: () => <div> <ClockClass /> <ClockFunc /> </div>
-}
-
-export { ClockClass, ClockFunc, ClockPane };
+export default [ ClockClass, ClockFunc ];
+export { ClockClass, ClockFunc };

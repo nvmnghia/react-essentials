@@ -9,28 +9,25 @@ import { ExamplePane } from '../app/App';
 
 
 const ClockPaneComponent = (): ReactElement => {
+  const clockTypes = ['ClockClass', 'ClockFunc'];    // someObj.constructor.name is changed after minify: https://stackoverflow.com/a/10314492/5959593
+  const clockComponents = [ClockClass, ClockFunc];
+
+  const clockElements = clockComponents.map((Clock, i) => (
+    <Col sm={6}>
+      <Card>
+        <Card.Header>
+          <code>{ clockTypes[i] }</code>
+        </Card.Header>
+        <Card.Body>
+          <Clock/>
+        </Card.Body>
+      </Card>
+    </Col>
+  ));
+
   return (
     <Row>
-      <Col sm={6}>
-        <Card>
-          <Card.Header>
-            <code>ClockClass</code>
-          </Card.Header>
-          <Card.Body>
-            <ClockClass/>
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col sm={6}>
-        <Card>
-          <Card.Header>
-            <code>ClockFunc</code>
-          </Card.Header>
-          <Card.Body>
-            <ClockFunc/>
-          </Card.Body>
-        </Card>
-      </Col>
+      { clockElements }
     </Row>
   );
 }
