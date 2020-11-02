@@ -36,8 +36,8 @@ const ClockPaneComponent = (): ReactElement => {
 }
 
 const ClockPane: ExamplePane = {
-  title: 'Clock',
-  element: ClockPaneComponent
+  title: 'Clock Class & Func',
+  content: ClockPaneComponent
 };
 
 export default ClockPane;

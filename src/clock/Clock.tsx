@@ -43,6 +43,7 @@ class ClockClass extends React.Component<
   constructor(props: ClockProps) {
     // Props: external, IMMUTABLE data.
     // Props are given by parent component.
+    // Props can be a FUNCTION
     super(props);
 
     // State: internal, MUTABLE data.
@@ -57,6 +58,13 @@ class ClockClass extends React.Component<
     // - State is passed as props to a child components.
     // In the last case, when that state changes, the changes
     // propagates to the child components.
+
+    // When downward is not enough: sync states...
+    // - from child to parent: as props can be a function (i.e. parent passes
+    //   its function to children), just call it to pass state to parent.
+    // - between non child-parent pairs: store state in a common ancestor.
+    // The above is called LIFTING STATE UP.
+
     // TODO: compare to unidirectional dataflow of Angular.
 
     // Q: Shouldn't props be immutable?
@@ -77,7 +85,7 @@ class ClockClass extends React.Component<
 
   // Default to true.
   // If false is returned, read docs carefully.
-  shouldComponentUpdate(nextProps: ClockProps, nextState: ClockState){
+  shouldComponentUpdate(nextProps: ClockProps, nextState: ClockState) {
     return true;
   }
 
@@ -121,7 +129,7 @@ const ClockFunc = (props: ClockProps): ReactElement => {
   // accurate, just a quick rule of thumb.
 
   // Do what constructor does.
-  const [time, setTime]: [Date, Function] = useState(new Date());
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
     // Do what componentDidMount() does.
@@ -134,14 +142,14 @@ const ClockFunc = (props: ClockProps): ReactElement => {
   // Do what render() does.
   return (
     <div>
-      { time.toLocaleTimeString() }
+      { time.toLocaleTimeString()}
     </div>
   );
 }
 
 const ClockPane: ExamplePane = {
   title: 'Clock',
-  element: () => <div> <ClockClass /> <ClockFunc /> </div>
+  content: () => <div> <ClockClass /> <ClockFunc /> </div>
 }
 
 export { ClockClass, ClockFunc, ClockPane };
