@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 
 import ClockPane from '../clock/ClockPane';
+import FilterableTablePane from '../searchbox/FilterableProductTablePane';
 
 
 export interface ExamplePane {
@@ -20,7 +21,7 @@ export interface ExamplePane {
 // All component in CamelCase
 // https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized
 function App() {
-  const panes: ExamplePane[] = [ClockPane];
+  const panes: ExamplePane[] = [ClockPane, FilterableTablePane];
 
   const paneNavElements: ReactElement[] = panes.map((pane, idx) => (
     <Nav.Item>

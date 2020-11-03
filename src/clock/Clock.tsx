@@ -50,27 +50,7 @@ class ClockClass extends React.Component<
     // outside of constructor() by setState().
     this.state = { time: new Date() };
 
-    // DOWNWARD dataflow:
-    // - Data is passed as props.
-    // - State is created, might be from props.
-    // - State is passed as props to a child components.
-    // In the last case, when that state changes, the changes
-    // propagates to the child components.
-
-    // When downward is not enough: sync states...
-    // - from child to parent: as props can be a function (i.e. parent passes
-    //   its function to children), just call it to pass state to parent.
-    // - between non child-parent pairs: store state in a common ancestor.
-    // The above is called LIFTING STATE UP.
-
-    // TODO: compare to unidirectional dataflow of Angular.
-
-    // Q: Shouldn't props be immutable?
-    // A: Props are immutable in the sense that the component can't
-    //    mutate its props. Parent component can change data that
-    //    was already passed as props to child component and that
-    //    changes is propagated down as explained.
-    // Tl;DR: props are states managed by parents.
+    // More on states and props in searchbox/FilterableProductTable
   }
 
   // Shit not related to state is setup here.
@@ -135,6 +115,10 @@ const ClockFunc = (props: ClockProps): ReactElement => {
 
     // Return a function doing what componentWillUnmount() does.
     return () => clearInterval(timerID);
+
+    // But useEffect is called after EVERY render, unlike the mounting & unmounting
+    // UNLESS a second argument is passed.
+    // https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
   });
 
   // Do what render() does.
