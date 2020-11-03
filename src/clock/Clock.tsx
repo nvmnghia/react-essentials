@@ -117,9 +117,9 @@ const ClockFunc = (props: ClockProps): ReactElement => {
     return () => clearInterval(timerID);
 
     // But useEffect is called after EVERY render, unlike the mounting & unmounting
-    // UNLESS a second argument is passed.
+    // UNLESS an empty array is passed, like below
     // https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
-  });
+  }, []);
 
   // Do what render() does.
   return (

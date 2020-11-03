@@ -13,7 +13,7 @@ const ClockPaneComponent = (): ReactElement => {
   const clockComponents = [ClockClass, ClockFunc];
 
   const clockElements = clockComponents.map((Clock, i) => (
-    <Col sm={6}>
+    <Col sm={6} className="mb-3">
       <Card>
         <Card.Header>
           <code>{ clockTypes[i] }</code>

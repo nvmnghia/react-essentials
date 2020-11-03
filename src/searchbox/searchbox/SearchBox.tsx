@@ -15,27 +15,25 @@ const SearchBox = (props: SearchBoxProps): ReactElement => {
   const preventReloadOnEnter = (event: React.FormEvent): void =>
     event.preventDefault();
 
+  // TODO: find a better way to call useRef<>()
   const searchTextInputElement = useRef<HTMLInputElement>(null !);    // "...lying to TypeScript that it's not null": https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/hooks/#useref
   const getSearchTerm = (): string => searchTextInputElement.current.value;    // .current is used to access the element
 
   const inStockOnlyCheckboxElement = useRef<HTMLInputElement>(null !);
   const isInStockOnly = (): boolean => inStockOnlyCheckboxElement.current.checked;
 
-  const search = (_?: any) => props.onSearch(getSearchTerm(), isInStockOnly());
+  const search = (_?: any): void => props.onSearch(getSearchTerm(), isInStockOnly());
 
   useEffect(
-    () => {
-      search();
-      searchTextInputElement.current.focus();
-    },
-    []    // Make the useEffect triggers once
+    () => search(),
+    []    // Make useEffect triggers once
   );
 
   return (
     <Form onSubmit={ preventReloadOnEnter }>
       <Form.Group>
-        <FormControl type="search" ref={ searchTextInputElement }
-          onKeyUp={ search } defaultValue={ defaultSearchTerm }    // defaultValue= is unique to react-bootstrap; value= will fix the input at that value
+        <FormControl type="search" ref={ searchTextInputElement } autoFocus
+          onChange={ search } defaultValue={ defaultSearchTerm }    // defaultValue= is unique to react-bootstrap; value= fixes the input at that value
           placeholder="Search something" aria-label="Search something" />
       </Form.Group>
       <Form.Group>

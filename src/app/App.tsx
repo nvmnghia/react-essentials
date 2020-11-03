@@ -41,22 +41,20 @@ function App() {
     <Container className="App">    {/* There must be one single wrapper / outer tag */}
       <Tab.Container defaultActiveKey="example-panel-0">    {/* All HTML attributes & CSS properties in camelCase instead of kebab-case */}
         <Jumbotron>
-          <h1 className="display-4" style={{ marginBottom: 10 }}>Examples</h1>
+          <h1 className="display-4 mb-4" style={{ marginBottom: 10 }}>Examples</h1>
                                       {/* │└─> CSS properties in camelCase and as an object */}
                                       {/* └──> Parse as JS (instead of a string) */}
           <Row>
             {/* Navigation pane
-                On the left on non-sm device
-                On the top on sm device */}
-            <Col sm={3}>    {/* Number has to be wrapped inside {} */}
+                On the left on >= sm device
+                On the top on < sm (i.e. xs) device */}
+            <Col sm={3} className="mb-3">    {/* Number has to be wrapped inside {} */}
               <Nav variant="pills" className="flex-column">
                 { paneNavElements }
               </Nav>
             </Col>
 
-            {/* Content pane
-                On the right on non-sm device
-                On the bottom on sm device */}
+            {/* Content pane */}
             <Col sm={9}>
               { paneContentElements }
             </Col>
