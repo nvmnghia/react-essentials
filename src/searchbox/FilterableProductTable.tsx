@@ -35,6 +35,7 @@ const getProducts = (): Product[] => {
 const allProducts = getProducts();
 
 const FilterableProductTable = () => {
+
   // DOWNWARD dataflow:
   // - Data is passed as props.
   // - State is created, might be from props.
@@ -69,7 +70,7 @@ const FilterableProductTable = () => {
 
   // The below are wrongs. searchTerm and inStockOnly can not be state.
   // They are just args for the search process.
-  // During implementation, I tried to make those 2 variable into state,
+  // During implementation, I tried to make those 2 into states,
   // which leads to many confusion.
   // let [searchTerm, setSearchTerm]: [string, Function] = useState('');
   // let [inStockOnly, setInStockOnly]: [boolean, Function] = useState(true);

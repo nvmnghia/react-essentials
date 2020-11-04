@@ -9,14 +9,14 @@ interface SearchBoxProps {
 }
 
 const SearchBox = (props: SearchBoxProps): ReactElement => {
-  const defaultSearchTerm = 'wrd';
+  const defaultSearchTerm = 'a';
   const defaultInStockOnly = true;
 
   const preventReloadOnEnter = (event: React.FormEvent): void =>
     event.preventDefault();
 
   // TODO: find a better way to call useRef<>()
-  const searchTextInputElement = useRef<HTMLInputElement>(null !);    // "...lying to TypeScript that it's not null": https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/hooks/#useref
+  const searchTextInputElement = useRef<HTMLInputElement>(null !);    // "...lying to TypeScript that it's not null": https://github.com/typescript-cheatsheets/react#useref
   const getSearchTerm = (): string => searchTextInputElement.current.value;    // .current is used to access the element
 
   const inStockOnlyCheckboxElement = useRef<HTMLInputElement>(null !);
@@ -25,14 +25,15 @@ const SearchBox = (props: SearchBoxProps): ReactElement => {
   const search = (_?: any): void => props.onSearch(getSearchTerm(), isInStockOnly());
 
   useEffect(
-    () => search(),
-    []    // Make useEffect triggers once
+    search,
+    []    // Make useEffect trigger once
   );
 
   return (
     <Form onSubmit={ preventReloadOnEnter }>
       <Form.Group>
-        <FormControl type="search" ref={ searchTextInputElement } autoFocus
+        <FormControl type="search" ref={ searchTextInputElement }
+          autoFocus    // Alternatively, useCallback instead of useRef to grab element in callback: https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
           onChange={ search } defaultValue={ defaultSearchTerm }    // defaultValue= is unique to react-bootstrap; value= fixes the input at that value
           placeholder="Search something" aria-label="Search something" />
       </Form.Group>
