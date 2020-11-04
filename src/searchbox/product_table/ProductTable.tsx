@@ -11,7 +11,7 @@ interface ProductRowProps {
 
 const ProductRow = (props: ProductRowProps): ReactElement => {
   return (
-    <tr>
+    <tr>    {/* Even though <ProductRow> will be compiled into this <tr>, key= must be set with <ProductRow>, i.e. top level */}
       <td>{ props.product.id }</td>
       <td>{ props.product.name }</td>
       <td>{ props.product.quantity }</td>

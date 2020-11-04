@@ -24,7 +24,7 @@ function App() {
   const panes: ExamplePane[] = [ClockPane, FilterableTablePane];
 
   const paneNavElements: ReactElement[] = panes.map((pane, idx) => (
-    <Nav.Item key={ idx } >
+    <Nav.Item key={ idx } >    {/* Key just needs to be unique among siblings */}
       <Nav.Link eventKey={ `example-panel-${idx}` }>
         { pane.title }
       </Nav.Link>
@@ -33,7 +33,7 @@ function App() {
 
   const paneContentElements: ReactElement[] = panes.map((pane, idx) => (
     <Tab.Pane key={ idx } eventKey={ `example-panel-${idx}` } unmountOnExit={ true }>
-      <pane.content/>
+      <pane.content />
     </Tab.Pane>
   ));
 
@@ -41,21 +41,21 @@ function App() {
     <Container className="App">    {/* There must be one single wrapper / outer tag */}
       <Tab.Container defaultActiveKey="example-panel-0">    {/* All HTML attributes & CSS properties in camelCase instead of kebab-case */}
         <Jumbotron>
-          <h1 className="display-4 mb-4" style={{ marginBottom: 10 }}>Examples</h1>
-                                      {/* │└─> CSS properties in camelCase and as an object */}
-                                      {/* └──> Parse as JS (instead of a string) */}
+          <h1 className="display-4 mb-4" style={ { marginBottom: 10 } }>Examples</h1>
+                                           {/* │ └─> CSS properties in camelCase and as an object */}
+                                           {/* └──> Parse as JS (instead of a string) */}
           <Row>
             {/* Navigation pane
                 On the left on >= sm device
                 On the top on < sm (i.e. xs) device */}
-            <Col sm={3} className="mb-3">    {/* Number has to be wrapped inside {} */}
+            <Col sm={ 3 } className="mb-3">    {/* Number has to be wrapped inside {} */}
               <Nav variant="pills" className="flex-column">
                 { paneNavElements }
               </Nav>
             </Col>
 
-            {/* Content pane */}
-            <Col sm={9}>
+            {/* Content pane */ }
+            <Col sm={ 9 }>
               { paneContentElements }
             </Col>
           </Row>
