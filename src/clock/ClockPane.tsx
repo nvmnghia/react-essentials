@@ -12,11 +12,11 @@ const ClockPaneComponent = (): ReactElement => {
   const clockTypes = ['ClockClass', 'ClockFunc'];    // someObj.constructor.name is changed after minify: https://stackoverflow.com/a/10314492/5959593
   const clockComponents = [ClockClass, ClockFunc];
 
-  const clockElements = clockComponents.map((Clock, i) => (
-    <Col sm={6} className="mb-3">
+  const clockElements = clockComponents.map((Clock, idx) => (
+    <Col key={ idx } sm={6} className="mb-3">
       <Card>
         <Card.Header>
-          <code>{ clockTypes[i] }</code>
+          <code>{ clockTypes[idx] }</code>
         </Card.Header>
         <Card.Body>
           <Clock/>

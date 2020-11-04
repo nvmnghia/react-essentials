@@ -34,7 +34,7 @@ const ProductTable = (props: ProductTableProps) => (
     </thead>
     <tbody>
       { props.products.map(product => (
-        <ProductRow product={ product } />
+        <ProductRow key={ product.id } product={ product } />
       )) }
     </tbody>
   </Table>

@@ -24,7 +24,7 @@ function App() {
   const panes: ExamplePane[] = [ClockPane, FilterableTablePane];
 
   const paneNavElements: ReactElement[] = panes.map((pane, idx) => (
-    <Nav.Item>
+    <Nav.Item key={ idx } >
       <Nav.Link eventKey={ `example-panel-${idx}` }>
         { pane.title }
       </Nav.Link>
@@ -32,7 +32,7 @@ function App() {
   ));
 
   const paneContentElements: ReactElement[] = panes.map((pane, idx) => (
-    <Tab.Pane eventKey={ `example-panel-${idx}` } unmountOnExit={ true }>
+    <Tab.Pane key={ idx } eventKey={ `example-panel-${idx}` } unmountOnExit={ true }>
       <pane.content/>
     </Tab.Pane>
   ));
