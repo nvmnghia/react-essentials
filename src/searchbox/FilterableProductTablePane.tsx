@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ExamplePane } from '../app/App';
-import FilterableProductTable from './FilterableProductTable';
+import FilterableProductTable from './filterable_product_table/FilterableProductTable';
 
 
 const FilterableTablePane: ExamplePane = {

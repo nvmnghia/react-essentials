@@ -1,0 +1,13 @@
+/* TODO: inheritance like below */
+/* .title {
+    .display-4 .mb-4
+} */
+
+/* Class selector is local */
+/* camelCase is preferred, not enforced
+   https://github.com/css-modules/css-modules#naming */
+.title {
+    color: white
+};
+
+/* Other shit is still global */

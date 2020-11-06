@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+import { Row, Col, Card } from 'react-bootstrap';
 
 import { ClockClass, ClockFunc } from './Clock';
 import { ExamplePane } from '../app/App';

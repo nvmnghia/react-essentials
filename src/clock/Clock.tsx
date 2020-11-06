@@ -106,7 +106,12 @@ const ClockFunc = (props: ClockProps): ReactElement => {
   // The comments comparing hook & class component below is not entirely
   // accurate, just a quick rule of thumb.
 
+  // Function component is like a big render(): both are called on each rendering.
+
   // Do what constructor does.
+  // Whenever component re-renders, this method is called, resetting
+  // all local variables. useState() persists local variable/states
+  // between re-rendering.
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {

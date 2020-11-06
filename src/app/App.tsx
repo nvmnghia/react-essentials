@@ -2,15 +2,18 @@
 // https://reactjs.org/docs/jsx-in-depth.html#react-must-be-in-scope
 import React, { ReactElement } from 'react';
 
-import Jumbotron from 'react-bootstrap/Jumbotron';
-import Container from 'react-bootstrap/Container';
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
+import { Jumbotron, Container, Tab, Row, Col, Nav } from 'react-bootstrap';
 
 import ClockPane from '../clock/ClockPane';
 import FilterableTablePane from '../searchbox/FilterableProductTablePane';
+
+// 2 ways to import css:
+// - webpack: affects global
+//   Depends on webpack
+import './App.css';
+// - Module: class selector affects local (i.e. only where included)
+//   Other selectors still affects global
+import styles from './App.module.css';
 
 
 export interface ExamplePane {
@@ -18,7 +21,8 @@ export interface ExamplePane {
   content: () => ReactElement
 }
 
-// All component in CamelCase
+// All components in CamelCase
+// Otherwise they're treated as HTML tag
 // https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized
 function App() {
   const panes: ExamplePane[] = [ClockPane, FilterableTablePane];
@@ -33,15 +37,15 @@ function App() {
 
   const paneContentElements: ReactElement[] = panes.map((pane, idx) => (
     <Tab.Pane key={ idx } eventKey={ `example-panel-${idx}` } unmountOnExit={ true }>
-      <pane.content />
+      <pane.content />    {/* Component name with dot notation doesn't have to be in CamelCase */}
     </Tab.Pane>
   ));
 
   return (
-    <Container className="App">    {/* There must be one single wrapper / outer tag */}
+    <Container>    {/* There must be one single wrapper / outer tag */}
       <Tab.Container defaultActiveKey="example-panel-0">    {/* All HTML attributes & CSS properties in camelCase instead of kebab-case */}
         <Jumbotron>
-          <h1 className="display-4 mb-4" style={ { marginBottom: 10 } }>Examples</h1>
+          <h1 className={ styles.title + " display-4 mb-4" } style={ { marginBottom: 10 } }>Examples</h1>
                                            {/* │ └─> CSS properties in camelCase and as an object */}
                                            {/* └──> Parse as JS (instead of a string) */}
           <Row>

@@ -1,10 +1,9 @@
 import React, { ReactElement, useEffect, useRef } from 'react';
 
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
+import { Form, FormControl } from 'react-bootstrap';
 
 
-interface SearchBoxProps {
+export interface SearchBoxProps {
   onSearch: (term: string, isInStockOnly: boolean) => void
 }
 
@@ -16,10 +15,10 @@ const SearchBox = (props: SearchBoxProps): ReactElement => {
     event.preventDefault();
 
   // TODO: find a better way to call useRef<>()
-  const searchTextInputElement = useRef<HTMLInputElement>(null !);    // "...lying to TypeScript that it's not null": https://github.com/typescript-cheatsheets/react#useref
+  const searchTextInputElement = useRef<HTMLInputElement>(null!);    // "...lying to TypeScript that it's not null": https://github.com/typescript-cheatsheets/react#useref
   const getSearchTerm = (): string => searchTextInputElement.current.value;    // .current is used to access the element
 
-  const inStockOnlyCheckboxElement = useRef<HTMLInputElement>(null !);
+  const inStockOnlyCheckboxElement = useRef<HTMLInputElement>(null!);
   const isInStockOnly = (): boolean => inStockOnlyCheckboxElement.current.checked;
 
   const search = (_?: any): void => props.onSearch(getSearchTerm(), isInStockOnly());
