@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactElement } from 'react';
 
 
-interface ClockProps { };
+interface ClockProps { }
 interface ClockState {
   time: Date;
 }
@@ -14,7 +14,7 @@ class ClockClass extends React.Component<
   // is not a field of the class/interface provided for props.
   ClockProps,    // Type of props
   ClockState     // Type of state
-  > {
+> {
 
   timerID: number | undefined = undefined;
 
@@ -103,14 +103,14 @@ const ClockFunc = (props: ClockProps): ReactElement => {
   // Hook (use()) must be called at the top level, NOT INSIDE loop/if/nested function.
   // Hook is a shift in paradigm, not a total equivalent of class component.
   // Therefore, strict 1:1 mapping of lifecycle methods & hooks is impossible.
-  // The comments comparing hook & class component below is not entirely
+  // The comments comparing hook & class component functions below is not entirely
   // accurate, just a quick rule of thumb.
 
   // Function component is like a big render(): both are called on each rendering.
 
   // Do what constructor does.
-  // Whenever component re-renders, this method is called, resetting
-  // all local variables. useState() persists local variable/states
+  // Whenever component re-renders, its function is called, resetting
+  // all local variables. useState() persists local variables/states
   // between re-rendering.
   const [time, setTime] = useState(new Date());
 
@@ -124,6 +124,7 @@ const ClockFunc = (props: ClockProps): ReactElement => {
     // But useEffect is called after EVERY render, unlike the mounting & unmounting
     // UNLESS an empty array is passed, like below
     // https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
+    // Without this, every render calls setInterval() and then clearInterval()
   }, []);
 
   // Do what render() does.
